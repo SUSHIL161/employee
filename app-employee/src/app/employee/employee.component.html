@@ -58,7 +58,7 @@
           (ngModelChange)="parseText('firstName')" (blur)="parseText('firstName')"
           placeholder="{{ i18text.employee.form.label.firstName | translate }}" name="firstName">
           <span class="label-error" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-            <i *ngIf="(firstName.errors && firstName.errors.required)">** {{ 'employee.validator.firstName.empty' | translate }} </i>
+            <i *ngIf="(firstName.errors && firstName.errors.required) || (errorMap && errorMap['firstName'])">** {{ 'employee.validator.firstName.empty' | translate }} </i>
             <i *ngIf="(firstName.errors && firstName.errors.pattern)">** {{ 'employee.validator.firstName.valid' | translate }} </i>
           </span>
       </div>

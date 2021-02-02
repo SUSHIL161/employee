@@ -21,6 +21,7 @@ export class EmployeeComponent implements OnInit {
   searchText: string;
   @ViewChild('searchTxt') searchField: ElementRef;
 
+  errorMap: any = {};
   constructor(private dataService: DataService, private translateService: TranslateService) {
     this.translateService.setDefaultLang('en');
     this.translateService.use('en');
@@ -60,39 +61,72 @@ export class EmployeeComponent implements OnInit {
     this.showView.viewAll = true;
   }
   
+
+  validateEmployee = () => {
+    if(!this.employee.firstName) {
+      alert(this.i18text.employee.validator.firstName.empty);
+      return false;
+    } else {
+      delete this.errorMap['firstName'];
+    }
+    if(!this.employee.lastName) {
+      alert(this.i18text.employee.validator.lastName.empty);
+      return false;
+    }
+    if(!this.employee.gender) {
+      alert(this.i18text.employee.validator.gender.empty);
+      return false;
+    }
+    if(!this.employee.dateOfBirth) {
+      alert(this.i18text.employee.validator.dateOfBirth.empty);
+      return false;
+    }
+    if(!this.employee.department) {
+      alert(this.i18text.employee.validator.department.empty);
+      return false;
+    }
+ 
+    return true;
+  }
+
+
   submit = () => {
-    if(this.isupdate) {
-      this.dataService.updateEmployee(this.employee.empID, this.employee).subscribe((response) => {
-        if(response.body.success && response.body.employee) {
-          let index = this.employees.findIndex(employee=> employee.empID === this.employeeBeingEdited.empID);
-          this.employee = response.body.employee;
-          if(index >=0 ) {
-            this.employees[index] = this.employee;
-            alert(this.i18text.employee.operation.updateSuccess);
-            this.sortEmployee();
+
+    if(this.validateEmployee()) {
+      if(this.isupdate) {
+        this.dataService.updateEmployee(this.employee.empID, this.employee).subscribe((response) => {
+          if(response.body.success && response.body.employee) {
+            let index = this.employees.findIndex(employee=> employee.empID === this.employeeBeingEdited.empID);
+            this.employee = response.body.employee;
+            if(index >=0 ) {
+              this.employees[index] = this.employee;
+              alert(this.i18text.employee.operation.updateSuccess);
+              this.sortEmployee();
+            } else {
+              alert(this.i18text.updateFail);
+            }
           } else {
             alert(this.i18text.updateFail);
           }
-        } else {
+        }, (error) => {
           alert(this.i18text.updateFail);
-        }
-      }, (error) => {
-        alert(this.i18text.updateFail);
-      });
-    } else {
-      this.dataService.addEmployee(this.employee).subscribe((response) => {
-        if(response.body.success && response.body.employee) {
-          this.employee = response.body.employee;
-          this.employees.push(this.employee);
-          this.sortEmployee();
-          alert(this.i18text.employee.operation.saveSuccess);
-        } else {
+        });
+      } else {
+        this.dataService.addEmployee(this.employee).subscribe((response) => {
+          if(response.body.success && response.body.employee) {
+            this.employee = response.body.employee;
+            this.employees.push(this.employee);
+            this.sortEmployee();
+            alert(this.i18text.employee.operation.saveSuccess);
+          } else {
+            alert(this.i18text.employee.operation.saveFail);
+          }
+        }), error => {
           alert(this.i18text.employee.operation.saveFail);
         }
-      }), error => {
-        alert(this.i18text.employee.operation.saveFail);
       }
     }
+  
 
   }
 
@@ -102,6 +136,7 @@ export class EmployeeComponent implements OnInit {
     this.employee = {};
     this.formError = {};
     this.isupdate = isupdate;
+    this.errorMap = {};
   }
 
   parseText = (key:string) => {
