@@ -39,6 +39,9 @@
             },
             "dateOfBirth": {
                 "empty": "Please choose date of birth"
+            },
+            "gender": {
+                "empty": "Please select Gender"
             }
         },
         "operation": {

@@ -188,7 +188,7 @@ function HttpLoaderFactory(http) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidenav\">\n  </div>\n<div class=\"header\" *ngIf=\"i18text\">\n    <button id=\"emp-reg\" class=\"tablink\" (click)=\"selectView('registration', 'viewAll',false)\" id=\"defaultOpen\">{{ i18text.employee.headers.registration | translate }}</button>\n    <button id=\"emp-list\" class=\"tablink\" (click)=\"selectView('viewAll', 'registration',true)\">{{ i18text.employee.headers.list | translate }}</button>\n</div>\n<div class=\"view-details\" *ngIf=\"i18text && showView && showView.viewAll\">\n    <div class=\"emp-details\">\n      <h3 class=\"employee-header\"> {{ i18text.employee.headers.list | translate }}</h3>\n      \n    </div>\n    <div>\n        <div class=\"emp-table\">\n          <table>\n            <tr>\n              <th class=\"emp-row-header\" *ngFor=\"let header of headers\">{{ header  | translate }}</th>\n              <th>    \n                <span>\n                  <input class= \"search-txt-stnd\" pInputText *ngIf=\"isSearch\" id=\"seyszstd_srch_inp\" placeholder=\"{{ 'search' | translate }}\"\n                type=\"text\"  (keyup)=\"searchEmployeeByText($event)\" [(ngModel)]=\"searchText\" #searchTxt (blur)=\"isSearch=!($event.target.value==='');\"/>\n              </span>\n              <span class=\"card-hdr-icons card-inj-icons\" *ngIf=\"!isSearch\">\n                  <img id=\"seyszstd_srch_img\" alt=\"Search\" src=\"assets/images/icon_Search_copy.svg\"\n                  (click)=\"searchEmplolyee($event)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n              </span>\n              </th>\n            </tr>\n            <tr class=\"emp-row\" *ngFor=\"let employee of  employees\">\n              <td> {{ employee.firstName | translate }} </td>\n              <td> {{ employee.lastName | translate }} </td>\n              <td> {{ employee.gender | translate }} </td>\n              <td> {{ employee.dateOfBirth | translate }} </td>\n              <td> {{ employee.department | translate }} </td>\n             <td> \n\n                <img id=\"editEmployee\" alt=\"delete\" src=\"assets/images/edit.svg\" \n                (click)=\"onUpdate(employee)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n                &nbsp;&nbsp;\n\n                <img id=\"deleteEmployee\" alt=\"delete\" src=\"assets/images/delete-button-svgrepo-com.svg\" \n                (click)=\"deleteEmplolyee(employee.empID)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n\n              <!-- <button (click)=\"deleteItemClicked( rowData )\" pButton type=\"button\" icon=\"pi pi-trash\" class=\"ui-button-danger\"></button> -->\n\n             </td>\n\n            </tr>\n          </table>\n        </div>\n    </div>\n</div>\n<div class=\"container\" *ngIf=\"i18text && showView && showView.registration\">\n    <h3 class=\"employee-header\">{{ i18text.employee.form.registration | translate }}</h3>\n      <div class=\"form-group\">\n        <label for=\"firstName\"> {{ i18text.employee.form.firstName | translate }} </label>\n        <input type=\"text\" class=\"form-control\" id=\"firstName\" [(ngModel)] = \"employee.firstName\"\n          name=\"firstName\" #firstName=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('firstName')\" (blur)=\"parseText('firstName')\"\n          placeholder=\"{{ i18text.employee.form.label.firstName | translate }}\" name=\"firstName\">\n          <span class=\"label-error\" *ngIf=\"firstName.invalid && (firstName.dirty || firstName.touched)\">\n            <i *ngIf=\"(firstName.errors && firstName.errors.required)\">** {{ 'employee.validator.firstName.empty' | translate }} </i>\n            <i *ngIf=\"(firstName.errors && firstName.errors.pattern)\">** {{ 'employee.validator.firstName.valid' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"lastName\">{{ i18text.employee.form.lastName | translate }}</label>\n        <input type=\"text\" class=\"form-control\" id=\"lastName\" [(ngModel)] = \"employee.lastName\"\n          name=\"lastName\" #lastName=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('lastName')\" (blur)=\"parseText('lastName')\"\n          placeholder=\"{{ i18text.employee.form.label.lastName | translate }}\">\n          <span class=\"label-error\" *ngIf=\"lastName.invalid && (lastName.dirty || lastName.touched)\">\n              <i *ngIf=\"(lastName.errors && lastName.errors.required)\">** {{ 'employee.validator.lastName.empty' | translate }} </i>\n              <i *ngIf=\"(lastName.errors && lastName.errors.pattern)\">** {{ 'employee.validator.lastName.valid' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"gender-male\"> {{ i18text.employee.form.label.gender | translate }} </label> &nbsp; &nbsp;\n        <div class=\"form-check-inline\">\n          <label class=\"form-check-label\" for=\"gender-male\">\n            <input type=\"radio\" class=\"form-check-input\" id=\"gender-male\" [(ngModel)]=\"employee.gender\"\n            name=\"gender\" value=\"{{ i18text.employee.form.male | translate }}\" checked>\n            {{ i18text.employee.form.male | translate }}\n          </label>\n        </div>\n        <div class=\"form-check-inline\">\n          <label class=\"gender-female\" for=\"gender-female\">\n            <input type=\"radio\" class=\"form-check-input\" id=\"gender-female\" [(ngModel)]=\"employee.gender\"\n             name=\"gender\" value=\"{{ i18text.employee.form.female | translate }}\">\n            {{ i18text.employee.form.female | translate }}\n          </label>\n        </div>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"dateOfBirth\"> {{ i18text.employee.form.label.dateOfBirth | translate }} </label>\n          <input type=\"date\" class=\"form-control\" id=\"dateOfBirth\" [(ngModel)] = \"employee.dateOfBirth\"\n          name=\"dateOfBirth\" #dateOfBirth=\"ngModel\" required\n          (ngModelChange)=\"parseText('dateOfBirth')\" (blur)=\"parseText('dateOfBirth')\"\n          placeholder=\"{{ i18text.employee.form.label.dateOfBirth | translate }}\" name=\"dateOfBirth\">\n          <span class=\"label-error\" *ngIf=\"dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)\">\n              <i *ngIf=\"(dateOfBirth.errors && dateOfBirth.errors.required)\">** {{ 'employee.validator.dateOfBirth.empty' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"department\"> {{ i18text.employee.form.label.department | translate }} </label>\n          <input type=\"text\" class=\"form-control\" id=\"department\" [(ngModel)] = \"employee.department\"\n          name=\"department\" #department=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('department')\" (blur)=\"parseText('department')\"\n          placeholder=\"{{ i18text.employee.form.label.department | translate }}\" name=\"department\">\n          <span class=\"label-error\" *ngIf=\"department.invalid && (department.dirty || department.touched)\">\n              <i *ngIf=\"(department.errors && department.errors.required)\">** {{ 'employee.validator.department.empty' | translate }} </i>\n              <i *ngIf=\"(department.errors && department.errors.pattern)\">** {{ 'employee.validator.department.valid' | translate }} </i>\n          </span>\n      </div>\n      <button type=\"submit\" (click) = \"submit()\" class=\"btn btn-primary\"\n       [disabled] = \"isError()\">\n        {{ i18text.employee.form.submit | translate }}\n      </button>\n</div>\n\n\n"
+module.exports = "<div class=\"sidenav\">\n  </div>\n<div class=\"header\" *ngIf=\"i18text\">\n    <button id=\"emp-reg\" class=\"tablink\" (click)=\"selectView('registration', 'viewAll',false)\" id=\"defaultOpen\">{{ i18text.employee.headers.registration | translate }}</button>\n    <button id=\"emp-list\" class=\"tablink\" (click)=\"selectView('viewAll', 'registration',true)\">{{ i18text.employee.headers.list | translate }}</button>\n</div>\n<div class=\"view-details\" *ngIf=\"i18text && showView && showView.viewAll\">\n    <div class=\"emp-details\">\n      <h3 class=\"employee-header\"> {{ i18text.employee.headers.list | translate }}</h3>\n      \n    </div>\n    <div>\n        <div class=\"emp-table\">\n          <table>\n            <tr>\n              <th class=\"emp-row-header\" *ngFor=\"let header of headers\">{{ header  | translate }}</th>\n              <th>    \n                <span>\n                  <input class= \"search-txt-stnd\" pInputText *ngIf=\"isSearch\" id=\"seyszstd_srch_inp\" placeholder=\"{{ 'search' | translate }}\"\n                type=\"text\"  (keyup)=\"searchEmployeeByText($event)\" [(ngModel)]=\"searchText\" #searchTxt (blur)=\"isSearch=!($event.target.value==='');\"/>\n              </span>\n              <span class=\"card-hdr-icons card-inj-icons\" *ngIf=\"!isSearch\">\n                  <img id=\"seyszstd_srch_img\" alt=\"Search\" src=\"assets/images/icon_Search_copy.svg\"\n                  (click)=\"searchEmplolyee($event)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n              </span>\n              </th>\n            </tr>\n            <tr class=\"emp-row\" *ngFor=\"let employee of  employees\">\n              <td> {{ employee.firstName | translate }} </td>\n              <td> {{ employee.lastName | translate }} </td>\n              <td> {{ employee.gender | translate }} </td>\n              <td> {{ employee.dateOfBirth | translate }} </td>\n              <td> {{ employee.department | translate }} </td>\n             <td> \n\n                <img id=\"editEmployee\" alt=\"delete\" src=\"assets/images/edit.svg\" \n                (click)=\"onUpdate(employee)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n                &nbsp;&nbsp;\n\n                <img id=\"deleteEmployee\" alt=\"delete\" src=\"assets/images/delete-button-svgrepo-com.svg\" \n                (click)=\"deleteEmplolyee(employee.empID)\" [ngStyle]=\"{'cursor': 'pointer'}\"/>\n\n              <!-- <button (click)=\"deleteItemClicked( rowData )\" pButton type=\"button\" icon=\"pi pi-trash\" class=\"ui-button-danger\"></button> -->\n\n             </td>\n\n            </tr>\n          </table>\n        </div>\n    </div>\n</div>\n<div class=\"container\" *ngIf=\"i18text && showView && showView.registration\">\n    <h3 class=\"employee-header\">{{ i18text.employee.form.registration | translate }}</h3>\n      <div class=\"form-group\">\n        <label for=\"firstName\"> {{ i18text.employee.form.firstName | translate }} </label>\n        <input type=\"text\" class=\"form-control\" id=\"firstName\" [(ngModel)] = \"employee.firstName\"\n          name=\"firstName\" #firstName=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('firstName')\" (blur)=\"parseText('firstName')\"\n          placeholder=\"{{ i18text.employee.form.label.firstName | translate }}\" name=\"firstName\">\n          <span class=\"label-error\" *ngIf=\"firstName.invalid && (firstName.dirty || firstName.touched)\">\n            <i *ngIf=\"(firstName.errors && firstName.errors.required) || (errorMap && errorMap['firstName'])\">** {{ 'employee.validator.firstName.empty' | translate }} </i>\n            <i *ngIf=\"(firstName.errors && firstName.errors.pattern)\">** {{ 'employee.validator.firstName.valid' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"lastName\">{{ i18text.employee.form.lastName | translate }}</label>\n        <input type=\"text\" class=\"form-control\" id=\"lastName\" [(ngModel)] = \"employee.lastName\"\n          name=\"lastName\" #lastName=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('lastName')\" (blur)=\"parseText('lastName')\"\n          placeholder=\"{{ i18text.employee.form.label.lastName | translate }}\">\n          <span class=\"label-error\" *ngIf=\"lastName.invalid && (lastName.dirty || lastName.touched)\">\n              <i *ngIf=\"(lastName.errors && lastName.errors.required)\">** {{ 'employee.validator.lastName.empty' | translate }} </i>\n              <i *ngIf=\"(lastName.errors && lastName.errors.pattern)\">** {{ 'employee.validator.lastName.valid' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"gender-male\"> {{ i18text.employee.form.label.gender | translate }} </label> &nbsp; &nbsp;\n        <div class=\"form-check-inline\">\n          <label class=\"form-check-label\" for=\"gender-male\">\n            <input type=\"radio\" class=\"form-check-input\" id=\"gender-male\" [(ngModel)]=\"employee.gender\"\n            name=\"gender\" value=\"{{ i18text.employee.form.male | translate }}\" checked>\n            {{ i18text.employee.form.male | translate }}\n          </label>\n        </div>\n        <div class=\"form-check-inline\">\n          <label class=\"gender-female\" for=\"gender-female\">\n            <input type=\"radio\" class=\"form-check-input\" id=\"gender-female\" [(ngModel)]=\"employee.gender\"\n             name=\"gender\" value=\"{{ i18text.employee.form.female | translate }}\">\n            {{ i18text.employee.form.female | translate }}\n          </label>\n        </div>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"dateOfBirth\"> {{ i18text.employee.form.label.dateOfBirth | translate }} </label>\n          <input type=\"date\" class=\"form-control\" id=\"dateOfBirth\" [(ngModel)] = \"employee.dateOfBirth\"\n          name=\"dateOfBirth\" #dateOfBirth=\"ngModel\" required\n          (ngModelChange)=\"parseText('dateOfBirth')\" (blur)=\"parseText('dateOfBirth')\"\n          placeholder=\"{{ i18text.employee.form.label.dateOfBirth | translate }}\" name=\"dateOfBirth\">\n          <span class=\"label-error\" *ngIf=\"dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)\">\n              <i *ngIf=\"(dateOfBirth.errors && dateOfBirth.errors.required)\">** {{ 'employee.validator.dateOfBirth.empty' | translate }} </i>\n          </span>\n      </div>\n      <div class=\"form-group\">\n          <label for=\"department\"> {{ i18text.employee.form.label.department | translate }} </label>\n          <input type=\"text\" class=\"form-control\" id=\"department\" [(ngModel)] = \"employee.department\"\n          name=\"department\" #department=\"ngModel\" required pattern = \"^[a-zA-Z0-9]+$\"\n          (ngModelChange)=\"parseText('department')\" (blur)=\"parseText('department')\"\n          placeholder=\"{{ i18text.employee.form.label.department | translate }}\" name=\"department\">\n          <span class=\"label-error\" *ngIf=\"department.invalid && (department.dirty || department.touched)\">\n              <i *ngIf=\"(department.errors && department.errors.required)\">** {{ 'employee.validator.department.empty' | translate }} </i>\n              <i *ngIf=\"(department.errors && department.errors.pattern)\">** {{ 'employee.validator.department.valid' | translate }} </i>\n          </span>\n      </div>\n      <button type=\"submit\" (click) = \"submit()\" class=\"btn btn-primary\"\n       [disabled] = \"isError()\">\n        {{ i18text.employee.form.submit | translate }}\n      </button>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -234,6 +234,7 @@ var EmployeeComponent = /** @class */ (function () {
         this.employeeBeingEdited = {};
         this.formError = {};
         this.isSearch = true;
+        this.errorMap = {};
         this.onUpdate = function (employee) {
             _this.employee = JSON.parse(JSON.stringify(employee));
             _this.employeeBeingEdited = JSON.parse(JSON.stringify(employee));
@@ -247,42 +248,70 @@ var EmployeeComponent = /** @class */ (function () {
             _this.showView.registration = false;
             _this.showView.viewAll = true;
         };
+        this.validateEmployee = function () {
+            if (!_this.employee.firstName) {
+                alert(_this.i18text.employee.validator.firstName.empty);
+                return false;
+            }
+            else {
+                delete _this.errorMap['firstName'];
+            }
+            if (!_this.employee.lastName) {
+                alert(_this.i18text.employee.validator.lastName.empty);
+                return false;
+            }
+            if (!_this.employee.gender) {
+                alert(_this.i18text.employee.validator.gender.empty);
+                return false;
+            }
+            if (!_this.employee.dateOfBirth) {
+                alert(_this.i18text.employee.validator.dateOfBirth.empty);
+                return false;
+            }
+            if (!_this.employee.department) {
+                alert(_this.i18text.employee.validator.department.empty);
+                return false;
+            }
+            return true;
+        };
         this.submit = function () {
-            if (_this.isupdate) {
-                _this.dataService.updateEmployee(_this.employee.empID, _this.employee).subscribe(function (response) {
-                    if (response.body.success && response.body.employee) {
-                        var index = _this.employees.findIndex(function (employee) { return employee.empID === _this.employeeBeingEdited.empID; });
-                        _this.employee = response.body.employee;
-                        if (index >= 0) {
-                            _this.employees[index] = _this.employee;
-                            alert(_this.i18text.employee.operation.updateSuccess);
-                            _this.sortEmployee();
+            if (_this.validateEmployee()) {
+                if (_this.isupdate) {
+                    _this.dataService.updateEmployee(_this.employee.empID, _this.employee).subscribe(function (response) {
+                        if (response.body.success && response.body.employee) {
+                            var index = _this.employees.findIndex(function (employee) { return employee.empID === _this.employeeBeingEdited.empID; });
+                            _this.employee = response.body.employee;
+                            if (index >= 0) {
+                                _this.employees[index] = _this.employee;
+                                alert(_this.i18text.employee.operation.updateSuccess);
+                                _this.sortEmployee();
+                            }
+                            else {
+                                alert(_this.i18text.updateFail);
+                            }
                         }
                         else {
                             alert(_this.i18text.updateFail);
                         }
-                    }
-                    else {
+                    }, function (error) {
                         alert(_this.i18text.updateFail);
-                    }
-                }, function (error) {
-                    alert(_this.i18text.updateFail);
-                });
-            }
-            else {
-                _this.dataService.addEmployee(_this.employee).subscribe(function (response) {
-                    if (response.body.success && response.body.employee) {
-                        _this.employee = response.body.employee;
-                        _this.employees.push(_this.employee);
-                        _this.sortEmployee();
-                        alert(_this.i18text.employee.operation.saveSuccess);
-                    }
-                    else {
+                    });
+                }
+                else {
+                    _this.dataService.addEmployee(_this.employee).subscribe(function (response) {
+                        if (response.body.success && response.body.employee) {
+                            _this.employee = response.body.employee;
+                            _this.employees.push(_this.employee);
+                            _this.sortEmployee();
+                            alert(_this.i18text.employee.operation.saveSuccess);
+                        }
+                        else {
+                            alert(_this.i18text.employee.operation.saveFail);
+                        }
+                    }), function (error) {
                         alert(_this.i18text.employee.operation.saveFail);
-                    }
-                }), function (error) {
-                    alert(_this.i18text.employee.operation.saveFail);
-                };
+                    };
+                }
             }
         };
         this.selectView = function (option1, option2, isupdate) {
@@ -291,6 +320,8 @@ var EmployeeComponent = /** @class */ (function () {
             _this.employee = {};
             _this.formError = {};
             _this.isupdate = isupdate;
+            _this.errorMap = {};
+            _this.searchText = '';
         };
         this.parseText = function (key) {
             if (_this.employee[key] && _this.employee[key].trim().length > 0) {
