@@ -15,7 +15,6 @@ export class EmployeeComponent implements OnInit {
   showView: any = {};
   isupdate: boolean = false;
   employeeBeingEdited: any = {};
-  formError:any = {};
   textPattern: RegExp;
   isSearch: boolean = false;
   searchText: string;
@@ -64,26 +63,35 @@ export class EmployeeComponent implements OnInit {
 
   validateEmployee = () => {
     if(!this.employee.firstName) {
-      alert(this.i18text.employee.validator.firstName.empty);
+      this.errorMap.firstName = true;
+      // alert(this.i18text.employee.validator.firstName.empty);
       return false;
     } else {
-      delete this.errorMap['firstName'];
+      delete this.errorMap.firstName;
     }
     if(!this.employee.lastName) {
-      alert(this.i18text.employee.validator.lastName.empty);
+      this.errorMap.lastName = true;
       return false;
+    } else {
+      delete this.errorMap.lastName;
     }
     if(!this.employee.gender) {
-      alert(this.i18text.employee.validator.gender.empty);
+      this.errorMap.gender = true;
       return false;
+    } else {
+       delete this.errorMap.gender;
     }
     if(!this.employee.dateOfBirth) {
-      alert(this.i18text.employee.validator.dateOfBirth.empty);
+      this.errorMap.dateOfBirth = true;
       return false;
+    } else {
+      delete this.errorMap.dateOfBirth;
     }
     if(!this.employee.department) {
-      alert(this.i18text.employee.validator.department.empty);
+      this.errorMap.department = true;
       return false;
+    } else {
+      delete this.errorMap.department;
     }
  
     return true;
@@ -134,7 +142,6 @@ export class EmployeeComponent implements OnInit {
     this.showView[option1] = true;
     this.showView[option2] = false;
     this.employee = {};
-    this.formError = {};
     this.isupdate = isupdate;
     this.errorMap = {};
     this.searchText = '';
@@ -142,13 +149,11 @@ export class EmployeeComponent implements OnInit {
 
   parseText = (key:string) => {
     if(this.employee[key] && this.employee[key].trim().length > 0) {
-      delete this.formError[key];
-    } else {
-      this.formError[key] = true;
+      delete this.errorMap[key];
     }
   }
   
-  isError = () =>  Object.keys(this.formError).length > 0;
+  isError = () =>  Object.keys(this.errorMap).length > 0;
 
   searchEmplolyee = () => {
     this.isSearch = !this.isSearch;
@@ -193,4 +198,7 @@ export class EmployeeComponent implements OnInit {
     })
   }
 
+  selectGender = () => {
+    delete this.errorMap.gender;
+  }
 }

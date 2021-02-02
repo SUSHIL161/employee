@@ -61,6 +61,11 @@
             <i *ngIf="(firstName.errors && firstName.errors.required) || (errorMap && errorMap['firstName'])">** {{ 'employee.validator.firstName.empty' | translate }} </i>
             <i *ngIf="(firstName.errors && firstName.errors.pattern)">** {{ 'employee.validator.firstName.valid' | translate }} </i>
           </span>
+          
+          <span class="label-error" *ngIf="errorMap.firstName">
+            <i *ngIf="errorMap.firstName">** {{ 'employee.validator.firstName.empty' | translate }} </i>
+          </span>
+
       </div>
       <div class="form-group">
         <label for="lastName">{{ i18text.employee.form.lastName | translate }}</label>
@@ -72,23 +77,30 @@
               <i *ngIf="(lastName.errors && lastName.errors.required)">** {{ 'employee.validator.lastName.empty' | translate }} </i>
               <i *ngIf="(lastName.errors && lastName.errors.pattern)">** {{ 'employee.validator.lastName.valid' | translate }} </i>
           </span>
+          <span class="label-error" *ngIf="errorMap.lastName">
+            <i *ngIf="errorMap.lastName">** {{ 'employee.validator.lastName.empty' | translate }} </i>
+          </span>
+
       </div>
       <div class="form-group">
           <label for="gender-male"> {{ i18text.employee.form.label.gender | translate }} </label> &nbsp; &nbsp;
         <div class="form-check-inline">
           <label class="form-check-label" for="gender-male">
-            <input type="radio" class="form-check-input" id="gender-male" [(ngModel)]="employee.gender"
+            <input type="radio" class="form-check-input" id="gender-male" [(ngModel)]="employee.gender" (click) = "selectGender()"
             name="gender" value="{{ i18text.employee.form.male | translate }}" checked>
             {{ i18text.employee.form.male | translate }}
           </label>
         </div>
         <div class="form-check-inline">
           <label class="gender-female" for="gender-female">
-            <input type="radio" class="form-check-input" id="gender-female" [(ngModel)]="employee.gender"
+            <input type="radio" class="form-check-input" id="gender-female" [(ngModel)]="employee.gender" (click) = "selectGender()"
              name="gender" value="{{ i18text.employee.form.female | translate }}">
             {{ i18text.employee.form.female | translate }}
           </label>
-        </div>
+        </div> <br/>
+        <span class="label-error" *ngIf="errorMap.gender">
+          <i *ngIf="errorMap.gender">** {{ 'employee.validator.gender.empty' | translate }} </i>
+        </span>
       </div>
       <div class="form-group">
           <label for="dateOfBirth"> {{ i18text.employee.form.label.dateOfBirth | translate }} </label>
@@ -98,6 +110,9 @@
           placeholder="{{ i18text.employee.form.label.dateOfBirth | translate }}" name="dateOfBirth">
           <span class="label-error" *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
               <i *ngIf="(dateOfBirth.errors && dateOfBirth.errors.required)">** {{ 'employee.validator.dateOfBirth.empty' | translate }} </i>
+          </span>
+          <span class="label-error" *ngIf="errorMap.dateOfBirth">
+            <i *ngIf="errorMap.dateOfBirth">** {{ 'employee.validator.dateOfBirth.empty' | translate }} </i>
           </span>
       </div>
       <div class="form-group">
@@ -109,6 +124,9 @@
           <span class="label-error" *ngIf="department.invalid && (department.dirty || department.touched)">
               <i *ngIf="(department.errors && department.errors.required)">** {{ 'employee.validator.department.empty' | translate }} </i>
               <i *ngIf="(department.errors && department.errors.pattern)">** {{ 'employee.validator.department.valid' | translate }} </i>
+          </span>
+          <span class="label-error" *ngIf="errorMap.department">
+            <i *ngIf="errorMap.department">** {{ 'employee.validator.department.empty' | translate }} </i>
           </span>
       </div>
       <button type="submit" (click) = "submit()" class="btn btn-primary"
