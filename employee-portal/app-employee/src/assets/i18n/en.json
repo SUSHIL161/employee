@@ -1,0 +1,51 @@
+{
+    "employee" : {
+        "headers": {
+            "registration": "Employee Registration",
+            "list": "Employee List "
+        },
+        "body": {
+            "details": "Employee Details:"
+        },
+        "form": {
+            "registration": "Employeee Registration",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "dateOfBirth": "Date of Birth",
+            "department": "Department",
+            "male": "Male",
+            "female": "Female",
+            "submit": "Submit",
+            "label": {
+                "firstName": "Enter First Name",
+                "lastName": "Enter Last Name",
+                "gender": "Select Gender:",
+                "dateOfBirth": "Select Date of Birth",
+                "department": "Enter Department"
+            }
+        },
+        "validator": {
+            "firstName": {
+                "empty": "Please enter first name",
+                "valid": "First name is not valid"
+            },
+            "lastName": {
+                "empty": "Please enter last name",
+                "valid": "First name is not valid"
+            },
+            "department": {
+                "empty": "Please enter department",
+                "valid": "First name is not valid"
+            },
+            "dateOfBirth": {
+                "empty": "Please choose date of birth"
+            }
+        },
+        "operation": {
+            "saveSuccess": "Saved Successfully",
+            "saveFail": "Failed to Save",
+            "updateSuccess":"Upated Successfully",
+            "updateFail": "Failed to Update"
+        }
+    }
+}

@@ -1,0 +1,90 @@
+* {box-sizing: border-box;}
+
+body { 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 80%;
+    border: 1px solid #ddd;
+}
+  
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+tr {
+  border-style: double;
+}
+tr:nth-child(even){background-color: #f2f2f2}
+
+.emp-row:hover {
+  background-color:lightgrey;
+  cursor: pointer;
+}
+.emp-table {
+    white-space: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+    display: -webkit-box;
+}
+.tablink {
+  background-color: #555;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 50px;
+  text-align: center;
+}
+.tablink:active {
+  background-color:white;
+}
+.header {
+  justify-content: center;
+  display: flex;
+}
+.sidenav {
+  height: 100%;
+  width: 3%;
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  left: 0;
+  background-color: #555;
+  overflow-x: hidden;
+}
+button:active{
+  background: gray;
+}
+button:focus{
+  background: gray;
+}
+.emp-row-header {
+  background-color: #e2e2e2;
+}
+th, td, h3 {
+  font-weight: 500;
+}
+.employee-header {
+  text-align: center;
+}
+.label-error {
+  color: #de5246;
+  font-weight: 500;
+}
