@@ -137,6 +137,7 @@ export class EmployeeComponent implements OnInit {
     this.formError = {};
     this.isupdate = isupdate;
     this.errorMap = {};
+    this.searchText = '';
   }
 
   parseText = (key:string) => {
