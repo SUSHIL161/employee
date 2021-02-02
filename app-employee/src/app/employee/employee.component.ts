@@ -17,7 +17,7 @@ export class EmployeeComponent implements OnInit {
   employeeBeingEdited: any = {};
   formError:any = {};
   textPattern: RegExp;
-  isSearch: boolean = true;
+  isSearch: boolean = false;
   searchText: string;
   @ViewChild('searchTxt') searchField: ElementRef;
 
